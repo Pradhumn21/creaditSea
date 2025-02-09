@@ -1,7 +1,6 @@
 require('dotenv').config()
 const express = require('express')
 const {connection} = require('./dbconfig')
-const creditRoute = require('./routes/creditReport.route')
 const cors = require('cors')
 const upload = require('./middlewares/multer')
 const{XMLParser} = require('fast-xml-parser')
@@ -15,7 +14,6 @@ server.use(cors({
    credentials: true,
  }))
 server.use(express.json())
-server.use('/credits',creditRoute)
 
  server.post('/uploadFile',upload.single('xmlFile'),async(req,res)=>{
    const xmlFile = req.file;
@@ -56,6 +54,15 @@ server.use('/credits',creditRoute)
       res.status(500).send({error:'server error',error})
    }
 })
+
+server.get('/reports',async(req,res)=>{
+   try {
+     const report = await CreditReportModel.find()
+     res.send(report)
+   } catch (error) {
+     res.status(500).send({error:'failed to fetch report'})
+   }
+  })
 
 
 server.listen(process.env.PORT,async()=>{
