@@ -9,7 +9,7 @@ const CreditReportModel = require('./models/creditReport.model')
 const server = express()
 const allowedOrigins = process.env.CORS_ORIGIN ? process.env.CORS_ORIGIN.split(",") : ["*"];
 
-app.use(cors({
+server.use(cors({
   origin: allowedOrigins,
   credentials: true,
 }));
