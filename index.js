@@ -9,10 +9,9 @@ const CreditReportModel = require('./models/creditReport.model')
 const server = express()
 server.use(cors({
    origin: "*",
-   methods: "GET,POST,PUT,DELETE",
-   allowedHeaders: "Content-Type,Authorization",
    credentials: true,
  }))
+ server.options("*", cors());
 
 server.use(express.json())
 
