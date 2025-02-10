@@ -7,11 +7,12 @@ const{XMLParser} = require('fast-xml-parser')
 const CreditReportModel = require('./models/creditReport.model')
 
 const server = express()
-server.use(cors({
-   origin: "*",
-   credentials: true,
- }))
- server.options("*", cors());
+const allowedOrigins = process.env.CORS_ORIGIN ? process.env.CORS_ORIGIN.split(",") : ["*"];
+
+app.use(cors({
+  origin: allowedOrigins,
+  credentials: true,
+}));
 
 server.use(express.json())
 
